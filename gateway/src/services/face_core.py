@@ -48,6 +48,7 @@ class DeepFaceWrapper(FaceCore):
         face_objects = DeepFace.extract_faces(
             img_path=img_path,
             detector_backend=self.detector_backend,
+            enforce_detection=False # if there isn't any face in the image, does not raise exception
         )
         results = []
         for face_object in face_objects:
