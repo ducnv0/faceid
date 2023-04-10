@@ -70,4 +70,3 @@ class DeepFaceWrapper(FaceCore):
             })
         
         return tuple(results)
-

@@ -1,26 +1,25 @@
 import os
-import tempfile
 
 from fastapi import APIRouter, UploadFile, WebSocket, WebSocketDisconnect
 import asyncio
 
-from ..utils.common import LOGGER
-from ..services.face import FaceService
+from src.utils.common import LOGGER
+from src.services.face import service_instance as face_service
 
 
 router = APIRouter()
 
 
-@router.post('/detect')
+@router.post('')
 async def detect_faces_rest(file: UploadFile):
     # FIXME: improve this. Avoid directly calling long running blocking operations
-    facial_areas = FaceService().detect_faces(await file.read())
+    facial_areas = face_service.detect_faces(await file.read())
 
     return facial_areas
     
 
 # handle back-pressure
-@router.websocket('/detect')
+@router.websocket('')
 async def detect_faces_ws(ws: WebSocket):
     await ws.accept()
     queue = asyncio.Queue(maxsize=int(os.getenv('WS_QUEUE_MAX_SIZE', '10')))
@@ -57,7 +56,6 @@ async def detect_faces(ws: WebSocket, queue: asyncio.Queue):
     """
     Pull images from the image queue, run detections and send results back to the client
     """
-    face_service = FaceService()
     while True:
         bytes_img = await queue.get()
         # LOGGER.debug('[ws] Running detections...')

@@ -1,6 +1,6 @@
 import tempfile
 
-from .face_core import DeepFaceWrapper
+from src.core.face import DeepFaceWrapper
 
 
 class FaceService():
@@ -12,3 +12,6 @@ class FaceService():
             tmpf.write(bytes_img)
             results = self.face_core.detect_faces(tmpf.name)
         return results
+
+
+service_instance = FaceService()
