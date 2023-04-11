@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class PhotoBase(BaseModel):
-    photo_url: str
+    url: str
 
 
 class PhotoCreate(PhotoBase):
