@@ -16,7 +16,6 @@ class PersonCreate(PersonBase):
 
 # Properties to receive via API on update
 class PersonUpdate(PersonBase):
-    id: int
     pass
 
 
