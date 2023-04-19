@@ -1,10 +1,9 @@
-import os
-
 from fastapi import APIRouter, UploadFile, WebSocket, WebSocketDisconnect
 import asyncio
 
 from src.utils.common import LOGGER
 from src.services.face import service_instance as face_service
+from src.settings import settings
 
 
 router = APIRouter()
@@ -22,7 +21,7 @@ async def detect_faces_rest(file: UploadFile):
 @router.websocket('')
 async def detect_faces_ws(ws: WebSocket):
     await ws.accept()
-    queue = asyncio.Queue(maxsize=int(os.getenv('WS_QUEUE_MAX_SIZE', '10')))
+    queue = asyncio.Queue(maxsize=settings.WS_QUEUE_MAX_SIZE)
 
     # submit detection task to the event loop for execution without calling await
     detection_task = asyncio.create_task(detect_faces(ws=ws, queue=queue))
