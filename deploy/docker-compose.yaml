@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    restart: unless-stopped
+    env_file:
+      - minio.env
+    volumes:
+      - ~/docker/persistent-data/minio/data:/data
+    ports:
+      - 9000:9000
+      - 9001:9001
+    command: server /data
+  faceid-gateway:
+    build:
+      context: ../gateway
+      dockerfile: Dockerfile
+    image: faceid-gateway:latest
+    container_name: faceid-gateway
+    env_file:
+      - ../gateway/.env
+    volumes:
+      - ../gateway/database/:/opt/database/
+    ports:
+      - 8080:8080
+    restart: unless-stopped

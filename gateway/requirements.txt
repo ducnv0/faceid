@@ -1,5 +1,7 @@
-deepface==0.0.79
+# deepface==0.0.79
 fastapi==0.75.2
 uvicorn[standard]==0.17.6
 python-multipart==0.0.6
 sqlalchemy==2.0.9
+minio==7.1.14
+pydantic==1.10.7

@@ -1,0 +1,3 @@
+[submodule "gateway/external_utils"]
+	path = gateway/external_utils
+	url = git@github.com:ducnv0/utils.git

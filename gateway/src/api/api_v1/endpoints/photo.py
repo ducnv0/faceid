@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.services.crud_photo import service_instance as crud_photo
 from src.services.crud_person import service_instance as crud_person
+from src.services.media import service_instance as media
 from src import schemas
 from src.api import dependencies as deps
 
@@ -68,4 +69,26 @@ def delete_photo(
             detail="Photo not found."
         )
     photo = photo.remove(db, id=id)
+    # TODO: delete from s3
+
     return photo
+
+
+@router.get('/presigned_put/person/{person_id}/', response_model=schemas.PhotoPresignedPutResponse)
+def get_presigned_put_url(
+    *,
+    db: Session = Depends(deps.get_db),
+    person_id: int,
+) -> Any:
+    """
+    Get presigned url to upload photo
+    """
+    person = crud_person.get(db, id=person_id)
+    if not person:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Person not found."
+        )
+        
+    return media.photo_presigned_put_object(person_id)
+

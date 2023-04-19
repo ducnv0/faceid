@@ -9,6 +9,7 @@ class Photo(Base):
     id = Column(Integer, primary_key=True, index=True)
     owner_id = Column(Integer, ForeignKey('person.id'))
     upload_time = Column(DateTime(timezone=True), server_default=now())
-    url = Column(String)
+    bucket_name = Column(String)
+    object_name = Column(String)
 
     owner = relationship('Person', back_populates='photos')
