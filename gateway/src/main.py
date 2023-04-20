@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.database.init_db import init_db
 from src.utils.common import init_logging
@@ -10,6 +11,14 @@ from src.settings import settings
 app = FastAPI()
 app.include_router(api_router, prefix='/api/v1/faceid')
 
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event('startup')
 def startup_event():
