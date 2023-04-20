@@ -1,8 +1,9 @@
 FROM python:3.9.16
 
 # install deepface lib
-RUN apt-get update
-RUN apt-get install ffmpeg -y
+RUN apt-get update \
+    && apt-get install ffmpeg -y \
+    && rm -rf /var/lib/apt/lists/*
 RUN pip install deepface==0.0.79
 COPY ./scripts/download_models.sh ./scripts/download_models.sh
 RUN chmod +x ./scripts/download_models.sh && ./scripts/download_models.sh
