@@ -74,7 +74,7 @@ def delete_photo(
     return photo
 
 
-@router.get('/presigned_put/person/{person_id}/', response_model=schemas.PhotoPresignedPutResponse)
+@router.get('/presigned_put/person/{person_id}', response_model=schemas.PhotoPresignedPutResponse)
 def get_presigned_put_url(
     *,
     db: Session = Depends(deps.get_db),

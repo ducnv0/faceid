@@ -20,6 +20,8 @@ class PhotoCreate(PhotoBase):
         if not media.minio.object_exists(bucket_name=bucket_name, object_name=object_name):
             raise ValueError('Photo is not uploaded!')
 
+        return values
+
 
 class PhotoUpdate(PhotoBase):
     pass
@@ -44,7 +46,7 @@ class PhotoResponse(PhotoInDBBase):
         if value:
             raise ValueError('Cannot assign value to presigned_url')
         bucket_name = values['bucket_name']
-        object_name = values['bucket_name']
+        object_name = values['object_name']
         presigned_get_url = media.minio.presigned_get_object(
             object_name=object_name,
             bucket_name=bucket_name,
