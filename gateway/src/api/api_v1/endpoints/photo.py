@@ -68,7 +68,7 @@ def delete_photo(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Photo not found."
         )
-    photo = photo.remove(db, id=id)
+    photo = crud_photo.remove(db, id=id)
     # TODO: delete from s3
 
     return photo
