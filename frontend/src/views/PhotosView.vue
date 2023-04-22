@@ -16,8 +16,11 @@
       <div v-if="photos && photos.length">
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
           <div class="col" v-for="photo in photos" :key="photo.id">
-            <img :src="photo.presigned_get_url" alt="..." class="card-img-top img-fluid"
-              style="object-fit: cover; height: 20rem;">
+            <div style="position: relative">
+              <img :src="photo.presigned_get_url" alt="There's something wrong with this image"
+                class="card-img-top img-fluid" style="object-fit: cover; height: 20rem;">
+              <div class="btn btn-outline-danger" style="position: absolute; top: 4px; right: 4px" @click="deletePhoto(photo.id)">&times;</div>
+            </div>
           </div>
         </div>
       </div>
