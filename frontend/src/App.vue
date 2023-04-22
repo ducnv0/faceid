@@ -13,7 +13,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="#" class="nav-link">
+            <router-link :to="{ name: 'detection' }" class="nav-link">
               <span>Face Detection</span>
             </router-link>
           </li>

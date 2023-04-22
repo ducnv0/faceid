@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PeopleView from '../views/PeopleView.vue'
 import PhotosView from '../views/PhotosView.vue'
+import DetectionView from '../views/DetectionView.vue'
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     name: 'photos',
     component: PhotosView,
     props: true
+  },
+  {
+    path: '/detection',
+    name: 'detection',
+    component: DetectionView
   }
 ]
 
