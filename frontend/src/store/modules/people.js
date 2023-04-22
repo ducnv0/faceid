@@ -21,7 +21,6 @@ const mutations = {
 
 const actions = {
   async createPerson ({ dispatch }, person) {
-    console.log(`test ${person}`)
     await axios.post('/api/v1/faceid/people', person)
     await dispatch('getPeople')
   },
@@ -30,7 +29,7 @@ const actions = {
     commit('setPeople', data)
   },
   async updatePerson ({ dispatch }, person) {
-    await axios.patch(`people/${person.id}`, person.form)
+    await axios.post(`people/${person.id}`, person.form)
     await dispatch('getPeople')
   },
   async deletePerson ({ dispatch }, id) {

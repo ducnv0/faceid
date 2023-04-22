@@ -28,7 +28,10 @@
               <h6 class="card-subtitle text-muted ">{{ person.email }}</h6>
               <div class="btn-group mt-2" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-outline-primary">Edit</button>
-                <button type="button" class="btn btn-outline-primary">Photos</button>
+                <router-link :to="{name: 'photos', params: {personId: person.id}}" class="btn btn-outline-primary">
+                  <span>Photos</span>
+                </router-link>
+                <!-- <button type="button" class="btn btn-outline-primary">Photos</button> -->
                 <button type="button" class="btn btn-outline-secondary">Disable</button>
                 <button type="button" class="btn btn-outline-danger" @click="deletePerson(person.id)">Delete</button>
               </div>

@@ -1,11 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AdminView from '../views/AdminView.vue'
+import PeopleView from '../views/PeopleView.vue'
+import PhotosView from '../views/PhotosView.vue'
 
 const routes = [
   {
-    path: '/admin',
-    name: 'admin',
-    component: AdminView
+    path: '/people',
+    name: 'people',
+    component: PeopleView
+  },
+  {
+    path: '/photos/person/:personId',
+    name: 'photos',
+    component: PhotosView,
+    props: true
   }
 ]
 

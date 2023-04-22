@@ -8,8 +8,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <router-link to="admin" class="nav-link">
-              <span>Admin</span>
+            <router-link :to="{ name: 'people' }" class="nav-link">
+              <span>People</span>
             </router-link>
           </li>
           <li class="nav-item">
