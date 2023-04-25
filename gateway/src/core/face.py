@@ -61,6 +61,7 @@ class DeepFaceWrapper(FaceCore):
             img_path=img_path,
             model_name=self.model_name,
             detector_backend=self.detector_backend,
+            enforce_detection=False
         )
         results = []
         for face_object in face_objects:
