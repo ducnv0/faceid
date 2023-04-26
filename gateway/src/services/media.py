@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import json
 
 from external_utils.src.storage.minio.client import CustomMinio
 from src.settings import settings
@@ -28,5 +29,16 @@ class MediaService():
             'bucket_name': bucket_name
         }
 
+    def update_embedding_data(self, embedding_data: list[dict]) -> None:
+        data = json.dumps(embedding_data, indent=4)
+        data = bytes(data, encoding='utf-8')
+        # FIXME: parameterize object_name of embedding data
+        self.minio.put_object(object_name='embedding_data.json', data=data, content_type='application/json')
+
+    def get_embedding_data(self) -> list[dict]:
+        data = self.minio.get_object('embedding_data.json')
+        return json.loads(data)
+
 
 service_instance = MediaService()
+
