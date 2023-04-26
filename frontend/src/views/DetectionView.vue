@@ -2,21 +2,16 @@
 <template>
   <div class="container">
 
-    <!-- <form id="form-connect">
-      <div class="input-group mb-3">
-        <select id="camera-select"></select>
-        <button class="btn btn-success" type="submit" id="button-start">Start</button>
-      </div>
-    </form>
-    <div class="position-relative">
-      <video ref="videoEl" autoplay="true" playsinline></video>
-      <canvas ref="canvasEl" class="position-absolute top-0 start-0"></canvas>
-    </div> -->
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" v-model="isDetectIdentity" :disabled="isCameraOpen">
+      <label class="form-check-label">Detect Identity</label>
+    </div>
 
     <div class="web-camera-container">
-      <div class="camera-button">
+
+      <div class="camera-button mb-2">
         <button type="button" class="btn"
-          :class="{ 'btn-success': !isCameraOpen, 'btn-danger': isCameraOpen }" @click="toggleCamera">
+          :class="{ 'btn-primary': !isCameraOpen, 'btn-danger': isCameraOpen }" @click="toggleCamera">
           <span v-if="!isCameraOpen">Start</span>
           <span v-else>Stop</span>
         </button>
@@ -26,6 +21,7 @@
         <video ref="video" class="w-75" autoplay></video>
         <canvas ref="canvas" class="position-absolute top-0 start-0 w-75"></canvas>
       </div>
+
     </div>
 
   </div>
@@ -37,8 +33,9 @@ export default {
     return {
       isCameraOpen: false,
       connection: null,
-      image_interval_ms: 100,
-      intervalId: null
+      image_interval_ms: 500,
+      intervalId: null,
+      isDetectIdentity: false
     }
   },
   methods: {
@@ -68,10 +65,11 @@ export default {
     },
     establishConnection () {
       console.log('Establish new websocket connection')
-      this.connection = new WebSocket('ws://localhost:8080/api/v1/faceid/detect')
+      const url = `ws://localhost:8080/api/v1/faceid/detect?identity=${this.isDetectIdentity}`
+      this.connection = new WebSocket(url)
       this.connection.onopen = (event) => {
         console.log(event)
-        console.log('Successfully connected to websocket server')
+        console.log(`Successfully connected to websocket server ${url}`)
       }
       this.connection.onmessage = (event) => {
         this.drawFaceBoxes(JSON.parse(event.data))
@@ -96,7 +94,6 @@ export default {
         ctx.drawImage(this.$refs.video, 0, 0)
         this.$refs.canvas.toBlob((blob) => {
           if (blob) {
-            console.log(blob)
             this.connection.send(blob)
           } else {
             // TODO: Find out why we get a null here???
@@ -116,12 +113,19 @@ export default {
       ctx.width = this.$refs.video.videoWidth
       ctx.height = this.$refs.video.videoHeight
       ctx.strokeStyle = '#49fb35'
+      ctx.fillStyle = 'red'
+      ctx.font = '20px Arial'
       ctx.beginPath()
       ctx.clearRect(0, 0, ctx.width, ctx.height)
       for (const face of faces) {
+        const facialArea = face.facial_area
         ctx.beginPath()
-        ctx.rect(face.x, face.y, face.w, face.h)
+        ctx.rect(facialArea.x, facialArea.y, facialArea.w, facialArea.h)
         ctx.stroke()
+        if ('identity' in face) {
+          const identity = face.identity
+          ctx.fillText(`${identity.name} ${identity.score.toFixed(2)}`, facialArea.x, facialArea.y)
+        }
       }
     }
   }
