@@ -25,3 +25,13 @@ services:
     ports:
       - 8080:8080
     restart: unless-stopped
+  faceid-frontend:
+    build:
+      context: ../frontend
+    image: faceid-frontend:latest
+    container_name: faceid-frontend
+    env_file:
+      - ../frontend/.env
+    ports:
+      - 8081:8081
+    restart: unless-stopped
