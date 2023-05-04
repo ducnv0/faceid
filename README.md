@@ -1,0 +1,42 @@
+# Cloud-base Face Recognition
+This project provides APIs for a face recognition system.
+
+In this project, I focus on how to design a system with high availability and scalability.
+
+## Demo
+TODO: youtube url
+
+## Run
+- Change configuration at `gateway/.env`
+- Run docker compose
+```sh
+docker-compose -f deploy/docker-compose.yaml up -d
+```
+
+## System Architecture
+```mermaid
+flowchart LR
+    GW("Gateway\n(FastAPI)")
+    DB[("Database\n(PostgreSQL)")]
+    OS("Object Storage\n(MinIO/S3)")
+    FE("Frontend\n(VueJS)")
+    subgraph WKG [Worker Group]
+        direction LR
+        Worker_1
+        Worker_2
+        Worker_n
+    end
+    GW --> |Get presigned urls| OS
+    WKG --> |Get images/models| OS
+    GW --> |Make inference| WKG
+    GW --> |Save/load user data| DB
+    FE --> |REST\nManagement APIs| GW
+    FE <---> |WebSocket\nInference APIs| GW
+    FE --> |Upload images\nthrough presigned urls| OS
+```
+## TODO:
+- Use Postgresql instead of sqlite for production
+- Separates prediction step from gateway for better scalability
+- Support API to shows training progress to client
+- Frontend: Use docker nginx for deployment
+  
