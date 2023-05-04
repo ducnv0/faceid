@@ -7,6 +7,10 @@ In this project, I focus on how to design a system with high availability and sc
 TODO: youtube url
 
 ## Run
+- Update submodules
+```sh
+git submodule update --init --recursive
+```
 - Change configuration at [`gateway/.env`](gateway/.env)
 - Run docker compose
 ```sh
