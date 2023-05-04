@@ -7,11 +7,16 @@ In this project, I focus on how to design a system with high availability and sc
 TODO: youtube url
 
 ## Run
-- Change configuration at `gateway/.env`
+- Change configuration at [`gateway/.env`](gateway/.env)
 - Run docker compose
 ```sh
 docker-compose -f deploy/docker-compose.yaml up -d
 ```
+- The demo app is served at http://localhost:8081
+
+## API Docs
+- The API documentation is served at http://localhost:8080/docs
+- Or you can upload [`gateway/openapi.json`](gateway/openapi.json) to [swagger editor](https://editor.swagger.io/)
 
 ## System Architecture
 ```mermaid

@@ -1,0 +1,735 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/v1/faceid/detect": {
+            "post": {
+                "tags": [
+                    "detect"
+                ],
+                "summary": "Detect Rest",
+                "operationId": "detect_rest_api_v1_faceid_detect_post",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Identity",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "name": "identity",
+                        "in": "query"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_detect_rest_api_v1_faceid_detect_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/faceid/train": {
+            "post": {
+                "tags": [
+                    "train"
+                ],
+                "summary": "Train",
+                "operationId": "train_api_v1_faceid_train_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/faceid/people": {
+            "get": {
+                "tags": [
+                    "person"
+                ],
+                "summary": "Get People",
+                "description": "Retrieve all people",
+                "operationId": "get_people_api_v1_faceid_people_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Skip",
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "name": "skip",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Limit",
+                            "type": "integer",
+                            "default": 100
+                        },
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Get People Api V1 Faceid People Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PersonResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "person"
+                ],
+                "summary": "Create Person",
+                "description": "Create new person",
+                "operationId": "create_person_api_v1_faceid_people_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PersonCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/faceid/people/{id}": {
+            "get": {
+                "tags": [
+                    "person"
+                ],
+                "summary": "Get Person By Id",
+                "description": "Retrieve a single person",
+                "operationId": "get_person_by_id_api_v1_faceid_people__id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Id",
+                            "type": "integer"
+                        },
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "person"
+                ],
+                "summary": "Update Person",
+                "description": "Update an existing person",
+                "operationId": "update_person_api_v1_faceid_people__id__put",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Id",
+                            "type": "integer"
+                        },
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PersonUpdate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "person"
+                ],
+                "summary": "Delete Person",
+                "description": "Delete a person",
+                "operationId": "delete_person_api_v1_faceid_people__id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Id",
+                            "type": "integer"
+                        },
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/faceid/photos/person/{person_id}": {
+            "get": {
+                "tags": [
+                    "photo"
+                ],
+                "summary": "Get Photos",
+                "description": "Get multiple photos of a person",
+                "operationId": "get_photos_api_v1_faceid_photos_person__person_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Person Id",
+                            "type": "integer"
+                        },
+                        "name": "person_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Skip",
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "name": "skip",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Limit",
+                            "type": "integer",
+                            "default": 100
+                        },
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Get Photos Api V1 Faceid Photos Person  Person Id  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PhotoResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "photo"
+                ],
+                "summary": "Create Photo",
+                "description": "Create new photo",
+                "operationId": "create_photo_api_v1_faceid_photos_person__person_id__post",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Person Id",
+                            "type": "integer"
+                        },
+                        "name": "person_id",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PhotoCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PhotoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/faceid/photos/{id}": {
+            "delete": {
+                "tags": [
+                    "photo"
+                ],
+                "summary": "Delete Photo",
+                "description": "Delete an photo",
+                "operationId": "delete_photo_api_v1_faceid_photos__id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Id",
+                            "type": "integer"
+                        },
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PhotoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/faceid/photos/presigned_put/person/{person_id}": {
+            "get": {
+                "tags": [
+                    "photo"
+                ],
+                "summary": "Get Presigned Put Url",
+                "description": "Get presigned url to upload photo",
+                "operationId": "get_presigned_put_url_api_v1_faceid_photos_presigned_put_person__person_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Person Id",
+                            "type": "integer"
+                        },
+                        "name": "person_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PhotoPresignedPutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_detect_rest_api_v1_faceid_detect_post": {
+                "title": "Body_detect_rest_api_v1_faceid_detect_post",
+                "required": [
+                    "file"
+                ],
+                "type": "object",
+                "properties": {
+                    "file": {
+                        "title": "File",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "PersonCreate": {
+                "title": "PersonCreate",
+                "required": [
+                    "full_name",
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "full_name": {
+                        "title": "Full Name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "type": "string"
+                    }
+                }
+            },
+            "PersonResponse": {
+                "title": "PersonResponse",
+                "required": [
+                    "full_name",
+                    "email",
+                    "id",
+                    "is_active",
+                    "create_time",
+                    "update_time"
+                ],
+                "type": "object",
+                "properties": {
+                    "full_name": {
+                        "title": "Full Name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "type": "string"
+                    },
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "is_active": {
+                        "title": "Is Active",
+                        "type": "boolean"
+                    },
+                    "create_time": {
+                        "title": "Create Time",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "update_time": {
+                        "title": "Update Time",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "PersonUpdate": {
+                "title": "PersonUpdate",
+                "required": [
+                    "full_name",
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "full_name": {
+                        "title": "Full Name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "type": "string"
+                    }
+                }
+            },
+            "PhotoCreate": {
+                "title": "PhotoCreate",
+                "required": [
+                    "bucket_name",
+                    "object_name"
+                ],
+                "type": "object",
+                "properties": {
+                    "bucket_name": {
+                        "title": "Bucket Name",
+                        "type": "string"
+                    },
+                    "object_name": {
+                        "title": "Object Name",
+                        "type": "string"
+                    }
+                }
+            },
+            "PhotoPresignedPutResponse": {
+                "title": "PhotoPresignedPutResponse",
+                "required": [
+                    "presigned_put_url",
+                    "object_name",
+                    "bucket_name"
+                ],
+                "type": "object",
+                "properties": {
+                    "presigned_put_url": {
+                        "title": "Presigned Put Url",
+                        "type": "string"
+                    },
+                    "object_name": {
+                        "title": "Object Name",
+                        "type": "string"
+                    },
+                    "bucket_name": {
+                        "title": "Bucket Name",
+                        "type": "string"
+                    }
+                }
+            },
+            "PhotoResponse": {
+                "title": "PhotoResponse",
+                "required": [
+                    "id",
+                    "owner_id",
+                    "bucket_name",
+                    "object_name",
+                    "upload_time"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "owner_id": {
+                        "title": "Owner Id",
+                        "type": "integer"
+                    },
+                    "bucket_name": {
+                        "title": "Bucket Name",
+                        "type": "string"
+                    },
+                    "object_name": {
+                        "title": "Object Name",
+                        "type": "string"
+                    },
+                    "upload_time": {
+                        "title": "Upload Time",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "presigned_get_url": {
+                        "title": "Presigned Get Url",
+                        "type": "string"
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
