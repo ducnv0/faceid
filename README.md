@@ -4,7 +4,13 @@ This project provides APIs for a face recognition system.
 In this project, I focus on how to design a system with high availability and scalability.
 
 ## Demo
-TODO: youtube url
+Demo Video [here.](https://youtu.be/OwbksRAelIc)
+
+Screenshots:
+![](docs/images/new_person.png)
+![](docs/images/photo.png)
+![](docs/images/detect1.png)
+![](docs/images/detect2.png)
 
 ## Run
 - Update submodules
